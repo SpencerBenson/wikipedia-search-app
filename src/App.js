@@ -50,7 +50,6 @@ function App() {
     }
   };
 
-  console.log(searchResultsList);
  
 
   return (
@@ -66,8 +65,10 @@ function App() {
       {isLoading && <div>Loading...</div>}
       {!isLoading && (<SearchResultsList
         searchResultsList={searchResultsList}
+        userInput={userInput}
       />)}
       { (searchResultsList.length <1) && <h3>Select language and search term above then hit enter for results</h3>}
+     
     </div>
   )
 }

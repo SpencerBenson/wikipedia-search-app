@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react"
 import "./App.css"
 import Header from "./components/Header"
-import Footer from "./components/Footer"
 
 import SearchResultsList from "./components/SearchResultsList"
 
@@ -55,7 +54,6 @@ function App() {
 
   return (
 
-    
     <div className="App">
       <Header
         userInput={userInput}
@@ -69,7 +67,7 @@ function App() {
         userInput={userInput}
       />)}
       { (searchResultsList.length <1) && <h3>Select language and search term above then hit enter for results</h3>}
-     <Footer />
+    
     </div>
   )
 }

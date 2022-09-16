@@ -11,7 +11,7 @@ Clone this repository and run :
 ### 1.  `npm install`
 ### 2. `npm start`
 
-The "wikipedia search app" willrun on your browser.
+### The "wikipedia search app" will run on your browser.
 
 
 

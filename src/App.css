@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+main > .container {
+  padding: 60px 15px 0;
+}
+.languages-dropdown {
+  margin-right: 20px !important;
+}
+
+.vert_align {
+  display: flex;
+  align-items: center;
+}
+.search-results{
+  max-width: 460px;
+  margin: auto;
+}
+.thumbnail-image-wrapper{
+  max-width:60px;
+  width:60px;
+}

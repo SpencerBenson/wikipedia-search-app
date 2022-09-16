@@ -1,25 +1,74 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useCallback } from "react"
+import "./App.css"
+import Header from "./components/Header"
+
+import SearchResultsList from "./components/SearchResultsList"
+
 
 function App() {
+  const [searchResultsList, setSearchResultsList] = useState([])
+  
+  const [isLoading, setIsLoading] = useState(false);
+  const [userInput, setUserInput] = useState("")
+
+  const [language, setLanguage] = useState("en")
+
+  const handleChange = (e) => {
+    setUserInput(e.currentTarget.value)
+  }
+
+     const setURL = useCallback(async () => { 
+       let url = `https://${language}.wikipedia.org/w/rest.php/v1/search/page?q=${userInput}&limit=10`
+      return url
+     }, [language, userInput])
+  
+  const handleSubmit = async () => {
+    setIsLoading(true);
+
+    try {
+      const url = await setURL()
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('result is: ', result.pages);
+
+      setSearchResultsList(result.pages)
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  console.log(searchResultsList);
+ 
+
   return (
+
+    
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header
+        userInput={userInput}
+        handleChange={handleChange}
+        handleSubmit={handleSubmit}
+        setLanguage={setLanguage}
+      />
+      {isLoading && <div>Loading...</div>}
+      {!isLoading && (<SearchResultsList
+        searchResultsList={searchResultsList}
+      />)}
+      { (searchResultsList.length <1) && <h3>Select language and search term above then hit enter for results</h3>}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

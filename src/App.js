@@ -22,7 +22,8 @@ function App() {
       return url
      }, [language, userInput])
   
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     setIsLoading(true);
 
     try {
